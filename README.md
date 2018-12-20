@@ -8,6 +8,9 @@ $ composer require luffluo/laravel-query-logger --dev
 ```
 
 # Usage
+
+`config/app.php` add `query_logger => true` to open.
+
 ```
 $ tail -f ./storage/logs/laravel.log
 ```
