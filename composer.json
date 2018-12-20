@@ -1,0 +1,24 @@
+{
+    "name": "luffluo/laravel-query-logger",
+    "description": "A dev tool to log all queries for laravel application.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luff Luo",
+            "email": "luffluo@outlook.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Luffluo\\LaravelQueryLogger\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": ["Luffluo\\LaravelQueryLogger\\QueryLoggerServiceProvider"]
+        }
+    }
+}
