@@ -2,12 +2,12 @@
 
 > A dev tool to log all queries for Laravel application.
 
-# Installation
+## Installation
 ```
 $ composer require luffluo/laravel-query-logger --dev
 ```
 
-# Usage
+## Usage
 
 `config/app.php` add `query_logger => true` to open.
 
@@ -24,5 +24,5 @@ $ tail -f ./storage/logs/laravel.log
 ...
 ```
 
-# Other
+## Other
 You will like it.
