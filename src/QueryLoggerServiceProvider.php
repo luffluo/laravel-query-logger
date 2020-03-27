@@ -2,6 +2,7 @@
 
 namespace Luffluo\LaravelQueryLogger;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
@@ -15,7 +16,9 @@ class QueryLoggerServiceProvider extends ServiceProvider
             return;
         }
 
-        Log::info(sprintf('=============== %s: %s ===============', request()->method(), request()->fullUrl()));
+        $request = request();
+
+        Log::info(sprintf('=============== %s: %s ===============', $request->method(), $this->getUrl($request)));
 
         DB::listen(function (QueryExecuted $query) {
 
@@ -34,6 +37,23 @@ class QueryLoggerServiceProvider extends ServiceProvider
     }
 
     /**
+     * 获取 url
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return string
+     */
+    public function getUrl($request)
+    {
+        $url = $request->fullUrl();
+        if (in_array(strtolower($request->method()), ['post', 'patch', 'put'])) {
+            $url = urldecode($request->fullUrlWithQuery($request->all()));
+        }
+
+        return $url;
+    }
+
+    /**
      * @param float $seconds
      *
      * @return string
@@ -44,7 +64,7 @@ class QueryLoggerServiceProvider extends ServiceProvider
         if ($seconds < 0.0001) {
             return round($seconds * 1000000) . 'μs';
 
-        // 毫秒
+            // 毫秒
         } elseif ($seconds < 1) {
             return round($seconds * 1000, 2) . 'ms';
         }
