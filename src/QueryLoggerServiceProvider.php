@@ -20,15 +20,6 @@ class QueryLoggerServiceProvider extends ServiceProvider
 
         Log::info(sprintf('=============== %s: %s ===============', $request->method(), $this->getUrl($request)));
 
-        Log::info('=============== Headers ===============');
-        foreach ($request->headers->all() as $header => $value) {
-            if (in_array($header, ['connection', 'accept-encoding', 'host', 'postman-token', 'cache-control', 'user-agent', 'accept', 'content-type', 'content-length'])) {
-                continue;
-            }
-            Log::info(ucfirst($header) . ': ' . join(', ', $value));
-        }
-        Log::info('=============== Headers ===============');
-
         DB::listen(function (QueryExecuted $query) {
 
             $sqlWithPlaceholders = str_replace(['%', '?'], ['%%', '%s'], $query->sql);
