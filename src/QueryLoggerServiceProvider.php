@@ -16,9 +16,9 @@ class QueryLoggerServiceProvider extends ServiceProvider
             return;
         }
 
-        $request = request();
+        // $request = request();
 
-        Log::info(sprintf('=============== %s: %s ===============', $request->method(), $this->getUrl($request)));
+        // Log::info(sprintf('=============== %s: %s ===============', $request->method(), $this->getUrl($request)));
 
         DB::listen(function (QueryExecuted $query) {
 
